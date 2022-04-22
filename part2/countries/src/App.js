@@ -1,6 +1,10 @@
 import axios from 'axios'
 import { useState, useEffect } from 'react'
 
+const Button = ({ label, onClick }) => (
+  <button onClick={onClick}>{label}</button>
+)
+
 const SearchBar = ({ query, handleQueryChange }) => (
   <div>
     find countries
@@ -36,6 +40,9 @@ const Country = ({ country }) => {
 
 const Countries = ({ countries }) => {
   const len = countries.length
+  const [countriesShownIndex, setCountriesShownIndex] = useState(
+    Array(len).fill(false)
+  )
 
   if (len === 1) {
     return <Country country={countries[0]} />
@@ -45,11 +52,25 @@ const Countries = ({ countries }) => {
     return <div>Too many matches, specify another filter</div>
   }
 
+  const handleClick = i => {
+    const copy = [...countriesShownIndex]
+    copy[i] = !copy[i]
+    setCountriesShownIndex(copy)
+  }
+
   return (
     <div>
-      {countries.map(country => (
+      {countries.map((country, i) => (
         <div key={country.name.official}>
           {country.name.common}
+          <Button 
+            label={countriesShownIndex[i] ? 'cancel' : 'show'} 
+            onClick={() => handleClick(i)} 
+          />
+          {countriesShownIndex[i] 
+            ? <Country country={country} /> 
+            : null
+          }
         </div>
       ))}
     </div>
