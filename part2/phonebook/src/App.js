@@ -48,8 +48,9 @@ const App = () => {
     }
 
     if (foundPerson) {
-      const prompt = `${personObject.name} is already added to phonebook, replace the old number with a new one?`
-      const result = window.confirm(prompt)
+      const result = window.confirm(
+        `${personObject.name} is already added to phonebook, replace the old number with a new one?`
+      )
 
       if (result) {
         personService.update(foundPerson.id, personObject)
@@ -59,6 +60,13 @@ const App = () => {
                 ? person : returnedPerson
             }))
             createMessage(`Updated ${returnedPerson.name}'s number`, 'success')
+          })
+          .catch(error => {
+            setPersons(persons.filter(person => person.id !== foundPerson.id))
+            createMessage(
+              `Information of ${foundPerson.name} has already been removed from server`,
+              'error'
+            )
           })
       }
 
@@ -79,6 +87,7 @@ const App = () => {
     if (result) {
       personService.remove(personObject.id)
       setPersons(persons.filter(person => person.id !== personObject.id))
+      createMessage(`Deleted ${personObject.name}`)
     }
   }
 
