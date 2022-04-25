@@ -5,12 +5,15 @@ import personService from './services/persons'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
+import Notification from './components/Notification'
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [query, setQuery] = useState('')
+  const [message, setMessage] = useState(null)
+  const [typeMessage, setTypeMessage] = useState(null)
 
   useEffect(() => {
     personService
@@ -22,6 +25,16 @@ const App = () => {
     const name = person.name.toLowerCase()
     return name.includes(query.toLowerCase())
   })
+
+  const createMessage = (message, type) => {
+    setMessage(message)
+    setTypeMessage(type)
+
+    setTimeout(() => {
+      setMessage(null)
+      setTypeMessage(null)
+    }, 5000)
+  }
 
   const handleSubmitClick = event => {
     event.preventDefault()
@@ -45,6 +58,7 @@ const App = () => {
               return person.id !== foundPerson.id 
                 ? person : returnedPerson
             }))
+            createMessage(`Updated ${returnedPerson.name}'s number`, 'success')
           })
       }
 
@@ -55,6 +69,7 @@ const App = () => {
           setPersons(persons.concat(returnedPerson))
           setNewName('')
           setNewNumber('')
+          createMessage(`Added ${returnedPerson.name}`, 'success')
         })
     }
   }
@@ -82,6 +97,9 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+
+      <Notification message={message} type={typeMessage} />
+
       <Filter
         query={query}
         handleQueryChange={handleQueryChange} 
