@@ -79,6 +79,7 @@ const App = () => {
           setNewNumber('')
           createMessage(`Added ${returnedPerson.name}`, 'success')
         })
+        .catch(error => createMessage(error.response.data.error, 'error'))
     }
   }
 

@@ -1,7 +1,7 @@
 const Notification = ({ message, type }) => {
   if (!message) return null
 
-  const color = type === 'error' ? 'red' : 'green'
+  const color = (type === 'error') ? 'red' : 'green'
 
   const style = {
     color: color,
