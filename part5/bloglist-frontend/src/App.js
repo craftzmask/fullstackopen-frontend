@@ -88,7 +88,7 @@ const App = () => {
         <Togglable buttonLabel="new blog" ref={blogFormRef}>
           <BlogForm createBlog={createBlog} />
         </Togglable>
-        <BlogList blogs={blogs} likeBlog={likeBlog} />
+        <BlogList blogs={blogs.sort((a, b) => b.likes - a.likes)} likeBlog={likeBlog} />
       </div>
     )
   }
