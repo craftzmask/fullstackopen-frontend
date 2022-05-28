@@ -66,6 +66,16 @@ const App = () => {
     }
   }
 
+  const likeBlog = async (id, blogObject) => {
+    try {
+      const updatedBlog = await blogService.update(id, blogObject)
+      setBlogs(blogs.map(blog => blog.id !== id ? blog : updatedBlog))
+      setupMessage(`liked ${updatedBlog.title} by ${user.name}`)
+    } catch (error) {
+      setupMessage(error.response.data.error, 'error')
+    }
+  }
+
   if (user) {
     return (
       <div>
@@ -78,7 +88,7 @@ const App = () => {
         <Togglable buttonLabel="new blog" ref={blogFormRef}>
           <BlogForm createBlog={createBlog} />
         </Togglable>
-        <BlogList blogs={blogs} />
+        <BlogList blogs={blogs} likeBlog={likeBlog} />
       </div>
     )
   }

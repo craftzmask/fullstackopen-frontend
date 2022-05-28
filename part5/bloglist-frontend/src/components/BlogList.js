@@ -4,7 +4,7 @@ const BlogList = props => {
   return (
     <div>
       {props.blogs.map(blog =>
-        <Blog key={blog.id} blog={blog} />
+        <Blog key={blog.id} blog={blog} likeBlog={props.likeBlog} />
       )}
     </div>
   )
