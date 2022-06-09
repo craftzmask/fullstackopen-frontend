@@ -17,7 +17,7 @@ const App = () => {
   useEffect(() => {
     blogService.getAll().then(blogs =>
       setBlogs( blogs )
-    )  
+    )
   }, [])
 
   useEffect(() => {
@@ -101,9 +101,9 @@ const App = () => {
         <Togglable buttonLabel="new blog" ref={blogFormRef}>
           <BlogForm createBlog={createBlog} />
         </Togglable>
-        <BlogList 
-          blogs={blogs.sort((a, b) => b.likes - a.likes)} 
-          likeBlog={likeBlog} 
+        <BlogList
+          blogs={blogs.sort((a, b) => b.likes - a.likes)}
+          likeBlog={likeBlog}
           removeBlog={removeBlog} />
       </div>
     )

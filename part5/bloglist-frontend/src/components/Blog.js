@@ -44,7 +44,9 @@ const Blog = ({ blog, likeBlog, removeBlog }) => {
         <button onClick={handleRemoveClick}>remove</button>
       </div>
 
-    </div>  
+    </div>
   )
 }
+
+
 export default Blog
