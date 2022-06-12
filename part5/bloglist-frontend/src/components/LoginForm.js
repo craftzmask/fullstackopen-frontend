@@ -34,7 +34,7 @@ const LoginForm = ({ handleLogin }) => {
   )
 }
 
-LoginForm.PropTypes = {
+LoginForm.propTypes = {
   handleLogin: PropTypes.func.isRequired
 }
 
